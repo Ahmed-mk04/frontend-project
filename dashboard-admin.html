@@ -1,0 +1,202 @@
+ <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Admin | EduLearn</title>
+    <link rel="stylesheet" href="C:\finalproject\assets\css\style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="logo">Edu<span>Learn</span></div>
+    <nav class="nav">
+        <a href="index.html" class="btn-acceuil">Accueil</a>
+        <a href="dashboard-admin.html" class="btn-cours active">Admin</a>
+        <a href="logout.html" class="btn-login">Se déconnecter</a>
+    </nav>
+</header>
+
+<div class="admin-container">
+    <!-- ===== Onglets ===== -->
+    <div class="admin-tabs">
+        <div class="admin-tab active" data-target="students">Étudiants</div>
+        <div class="admin-tab" data-target="teachers">Enseignants</div>
+        <div class="admin-tab" data-target="courses">Cours</div>
+    </div>
+
+    <!-- ===== Gestion Étudiants ===== -->
+    <div id="students" class="admin-section active">
+        <h2>Gestion des Étudiants</h2>
+        <button class="btn-admin" onclick="openModal('addStudentModal')">Ajouter un étudiant</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Année</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentsTable">
+                <!-- Les lignes seront générées par JS / Node -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ===== Gestion Enseignants ===== -->
+    <div id="teachers" class="admin-section">
+        <h2>Gestion des Enseignants</h2>
+        <button class="btn-admin" onclick="openModal('addTeacherModal')">Ajouter un enseignant</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Domaine</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="teachersTable">
+                <!-- Les lignes seront générées par JS / Node -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ===== Gestion Cours ===== -->
+    <div id="courses" class="admin-section">
+        <h2>Gestion des Cours</h2>
+        <button class="btn-admin" onclick="openModal('addCourseModal')">Ajouter un cours</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Enseignant</th>
+                    <th>Accès</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="coursesTable">
+                <!-- Les lignes seront générées par JS / Node -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ===== MODALS ===== -->
+<div class="modal" id="addStudentModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('addStudentModal')">&times;</span>
+        <h3>Ajouter un étudiant</h3>
+        <form id="addStudentForm">
+            <input type="text" placeholder="Nom complet" name="name" required>
+            <input type="email" placeholder="Email" name="email" required>
+            <input type="text" placeholder="Année" name="year" required>
+            <button type="submit" class="btn-admin">Ajouter</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="addTeacherModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('addTeacherModal')">&times;</span>
+        <h3>Ajouter un enseignant</h3>
+        <form id="addTeacherForm">
+            <input type="text" placeholder="Nom complet" name="name" required>
+            <input type="text" placeholder="Domaine" name="domain" required>
+            <input type="email" placeholder="Email" name="email" required>
+            <button type="submit" class="btn-admin">Ajouter</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="addCourseModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('addCourseModal')">&times;</span>
+        <h3>Ajouter un cours</h3>
+        <form id="addCourseForm">
+            <input type="text" placeholder="Titre du cours" name="title" required>
+            <input type="text" placeholder="Enseignant" name="teacher" required>
+            <select name="access" required>
+                <option value="Gratuit">Gratuit</option>
+                <option value="Payant">Payant</option>
+            </select>
+            <button type="submit" class="btn-admin">Ajouter</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Onglets
+    const tabs = document.querySelectorAll('.admin-tab');
+    const sections = document.querySelectorAll('.admin-section');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById(tab.dataset.target).classList.add('active');
+        });
+    });
+
+    // Modals
+    function openModal(id) {
+        document.getElementById(id).style.display = 'block';
+    }
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+    // Fermer modal en cliquant en dehors
+    window.onclick = function(event) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if(event.target === modal) modal.style.display = 'none';
+        });
+    }
+
+    // Exemple JS pour générer les lignes (Node.js pourra les remplir via fetch)
+    const students = [
+        {id:1, name:"Marwa Mfd", email:"marwa@email.com", year:"L2"},
+        {id:2, name:"Ahmed Benali", email:"ahmed@email.com", year:"L3"}
+    ];
+    const teachers = [
+        {id:1, name:"Ahmed Benali", domain:"Développement Web", email:"ahmed@email.com"},
+        {id:2, name:"Sarah Ouali", domain:"Java / POO", email:"sarah@email.com"}
+    ];
+    const courses = [
+        {id:1, title:"Développement Web Moderne", teacher:"Ahmed Benali", access:"Gratuit"},
+        {id:2, title:"Java POO", teacher:"Sarah Ouali", access:"Payant"}
+    ];
+
+    function populateTable(data, tableId){
+        const tbody = document.getElementById(tableId);
+        tbody.innerHTML = "";
+        data.forEach(item=>{
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${item.id}</td>
+                <td>${item.name || item.title}</td>
+                <td>${item.email || item.teacher || item.domain || ""}</td>
+                <td>${item.year || item.access || ""}</td>
+                <td>
+                    <button class="btn-admin">Modifier</button>
+                    <button class="btn-admin">Supprimer</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    populateTable(students, "studentsTable");
+    populateTable(teachers, "teachersTable");
+    populateTable(courses, "coursesTable");
+</script>
+
+</body>
+</html>

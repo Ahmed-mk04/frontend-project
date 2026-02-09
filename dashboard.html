@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | EduLearn</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="logo">Edu<span>Learn</span></div>
+    <nav class="nav">
+        <a href="index.html" class="btn-acceuil">Accueil</a>
+        <a href="cours/listecours.html" class="btn-cours">Cours</a>
+        <a href="profil.html" class="btn-profile">Profil</a>
+        <a href="tarifs.html" class="btn-tarifs">Abonnements</a>
+        <a href="contact/contact.html" class="btn-contact">Contact</a>
+        <a href="logout.html" class="btn-login">Se déconnecter</a>
+        <!-- TODO Node.js : afficher Se connecter / Se déconnecter selon session -->
+    </nav>
+</header>
+
+<!-- ===== DASHBOARD ===== -->
+<section class="courses-dashboard">
+    <h1>📊 Mes cours</h1>
+
+    <div class="courses-grid">
+
+        <!-- ===== Cours 1 ===== -->
+        <div class="course-card">
+            <h3>Développement Web Moderne</h3>
+
+            <div class="progress-bar">
+                <div class="progress" style="width: 40%;"></div>
+            </div>
+
+            <p>Progression : 40%</p>
+            <a href="cours/course.html" class="btn btn-details">Continuer le cours</a>
+        </div>
+
+        <!-- ===== Cours 2 ===== -->
+        <div class="course-card">
+            <h3>Java – Programmation Orientée Objet</h3>
+
+            <div class="progress-bar">
+                <div class="progress" style="width: 70%;"></div>
+            </div>
+
+            <p>Progression : 70%</p>
+            <a href="cours/course.html" class="btn btn-details">Continuer le cours</a>
+        </div>
+
+        <!-- ===== Cours 3 ===== -->
+        <div class="course-card">
+            <h3>Bases de Données MySQL</h3>
+
+            <div class="progress-bar">
+                <div class="progress" style="width: 20%;"></div>
+            </div>
+
+            <p>Progression : 20%</p>
+            <a href="cours/course.html" class="btn btn-details">Continuer le cours</a>
+        </div>
+
+        <!-- TODO Node.js :
+             - boucle sur les cours de l’étudiant
+             - progression dynamique depuis la BDD -->
+
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <p>© 2026 EduLearn – Plateforme e-learning</p>
+</footer>
+
+</body>
+</html>

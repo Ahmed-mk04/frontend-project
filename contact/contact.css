@@ -1,0 +1,86 @@
+.about {
+    padding: 80px 60px;
+    text-align: center;
+}
+
+.about h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.about p {
+    max-width: 800px;
+    margin: auto;
+    color: #555;
+    font-size: 18px;
+}
+
+/* ===== SERVICES ===== */
+.services {
+    background: #fff;
+    padding: 60px;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.service-card {
+    background: #f5f7fb;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.service-card i {
+    font-size: 40px;
+    color: #5624d0;
+    margin-bottom: 15px;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+}
+
+/* ===== CONTACT ===== */
+.contact {
+    padding: 60px;
+    text-align: center;
+}
+
+.contact-box p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.contact-box i {
+    color: #5624d0;
+    margin-right: 8px;
+}
+
+.socials {
+    margin-top: 25px;
+}
+
+.socials a {
+    font-size: 26px;
+    margin: 0 10px;
+    color: #5624d0;
+    transition: transform 0.3s;
+}
+
+.socials a:hover {
+    transform: scale(1.2);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: #111;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}

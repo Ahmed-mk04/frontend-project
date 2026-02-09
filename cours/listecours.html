@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des cours | EduLearn</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script defer src="../assets/js/main.js"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="logo">Edu<span>Learn</span></div>
+
+    <form class="search-bar" action="../recherche.html" method="GET">
+        <input type="text" name="q" placeholder="Rechercher un cours..." required>
+        <button type="submit"><i class='bx bx-search'></i></button>
+    </form>
+
+    <nav class="nav">
+        <a href="../index.html" class="btn-acceuil">Accueil</a>
+        <a href="../enseignant.html" class="btn-cours">enseignant</a>
+        <a href="../tarifs.html" class="btn-tarifs">Abonnements</a>
+        <a href="../contact/contact.html" class="btn-contact">Contact</a>
+        <a href="../auth/login.html" class="btn-login">Se connecter</a>
+    </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="page-hero">
+    <div class="page-hero-text">
+    <h1>Nos Cours Disponibles</h1>
+    <p>Apprenez avec des enseignants qualifiés et des contenus modernes et adaptés à vos besoins.</p>
+    </div>
+     <div class="page-hero-img">
+        <img src="../assets/image/img8.jpg" alt="Illustration apprentissage en ligne">
+    </div>
+</section>
+
+
+<!-- ===== FILTRE PAR SPECIALITE ===== -->
+<section class="filter-bar">
+    <form>
+        <select name="specialite">
+            <option value="">Toutes les spécialités</option>
+            <option value="web">Développement Web</option>
+            <option value="java">Java / POO</option>
+            <option value="bd">Bases de données</option>
+        </select>
+
+        <select name="annee">
+            <option value="">Toutes les années</option>
+            <option value="l1">L1</option>
+            <option value="l2">L2</option>
+            <option value="l3">L3</option>
+        </select>
+
+        <button type="submit">Filtrer</button>
+        <!-- TODO Node.js : filtrage dynamique -->
+    </form>
+</section>
+
+<!-- ===== LISTE DES COURS ===== -->
+<section class="courses-grid">
+
+    <!-- Cours 1 -->
+    <a href="cours.html" class="course-card">
+        <h3>Développement Web Moderne</h3>
+        <span class="access-key">Accès par clé</span>
+        <p>Apprenez à créer des sites web modernes avec HTML, CSS, JavaScript.</p>
+        <div class="course-meta">
+            <span><i class='bx bxs-user'></i> Ahmed Benali</span>
+            <strong class="free">Gratuit</strong>
+        </div>
+    </a>
+
+    <!-- Cours 2 -->
+    <a href="cours.html" class="course-card">
+        <h3>Java – Programmation Orientée Objet</h3>
+        <span class="access-key">Accès par clé</span>
+        <p>Maîtrisez les concepts POO avec Java et des exemples pratiques.</p>
+        <div class="course-meta">
+            <span><i class='bx bxs-user'></i> Sarah Kacem</span>
+            <strong class="paid">Payant</strong>
+        </div>
+    </a>
+
+    <!-- Cours 3 -->
+    <a href="cours.html" class="course-card">
+        <h3>Bases de Données MySQL</h3>
+        <span class="access-key">Accès par clé</span>
+        <p>Comprendre les bases des bases de données relationnelles.</p>
+        <div class="course-meta">
+            <span><i class='bx bxs-user'></i> Mohamed Ali</span>
+            <strong class="free">Gratuit</strong>
+        </div>
+    </a>
+
+    <!-- TODO Node.js : générer les cours dynamiquement -->
+
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <p>© 2026 EduLearn – Plateforme e-learning</p>
+</footer>
+
+</body>
+</html>

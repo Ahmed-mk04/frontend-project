@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarifs & Abonnements | EduLearn</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="assets/js/main.js"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="logo">Edu<span>Learn</span></div>
+
+    <section class="search-bar">
+        <form action="cours/listecours.html" method="get" class="search-form">
+            <input type="text" name="search" placeholder="Rechercher un cours..." required>
+            <button type="submit">
+                <i class='bx bx-search'></i>
+            </button>
+        </form>
+    </section>
+
+    <nav class="nav">
+        <a href="index.html" class="btn-acceuil">Accueil</a>
+        <a href="cours/listecours.html" class="btn-cours">Cours</a>
+        <a href="enseignant.html" class="btn-tarifs">enseignant</a>
+        <a href="contact/contact.html" class="btn-contact">Contact</a>
+        <a href="auth/login.html" class="btn-login">Se connecter</a>
+    </nav>
+</header>
+
+<!-- ===== HERO TARIFS ===== -->
+<section class="pricing-hero">
+    <h1>Choisissez l’abonnement qui vous convient</h1>
+    <p>
+        Vous ne souhaitez pas acheter des cours un par un ?
+        Optez pour un abonnement et accédez à l’ensemble de nos cours,
+        bénéficiez de certifications et d’un support prioritaire pour
+        accompagner votre apprentissage.
+    </p>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing">
+    <div class="pricing-grid">
+
+        <!-- GRATUIT -->
+        <div class="pricing-card">
+            <h3>Gratuit</h3>
+            <p class="price">0 DA</p>
+            <ul>
+                <li><i class='bx bx-check'></i> Accès aux cours </li>
+                <li><i class='bx bx-check'></i> Support communautaire</li>
+            </ul>
+            <a href="auth/login.html" class="btn-primary">S’abonner</a>
+        </div>
+        <!-- STANDARD -->
+        <div class="pricing-card popular">
+            <span class="badge">Populaire</span>
+            <h3>Standard</h3>
+            <p class="price">2500 DA / mois</p>
+            <ul>
+                <li><i class='bx bx-check'></i> Certificats</li>
+                <li><i class='bx bx-check'></i> Support prioritaire</li>
+            </ul>
+            <a href="auth/login.html" class="btn-primary">S’abonner</a>
+        </div>
+        <!-- PREMIUM -->
+        <div class="pricing-card">
+            <h3>Premium</h3>
+            <p class="price">5000 DA / mois</p>
+            <ul>
+                <li><i class='bx bx-check'></i> Certificats premium</li>
+                <li><i class='bx bx-check'></i> Suivi professionnel</li>
+                <li><i class='bx bx-check'></i> Seance buisiness consulting</li>
+            </ul>
+            <a href="auth/login.html" class="btn-primary">S’abonner</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <p>© 2026 EduLearn – Tous droits réservés.</p>
+</footer>
+
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>EduLearn | Plateforme e-learning</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="assets/js/main.js"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="logo">Edu<span>Learn</span></div>
+
+    <form class="search-bar" action="recherche.html" method="GET">
+        <input type="text" name="q" placeholder="Rechercher un cours..." required>
+        <button type="submit">
+            <i class='bx bx-search'></i>
+        </button>
+    </form>
+
+    <nav class="nav">
+        <a href="cours/listecours.html" class="btn-cours">Cours</a>
+        <a href="enseignant.html" class="btn-e">Enseignants</a>
+        <a href="tarifs.html" class="btn-tarifs">Abonnements</a>
+        <a href="contact/contact.html" class="btn-contact">Contact</a>
+        <a href="auth/login.html" class="btn-login">Se connecter</a>
+        <!-- TODO Node.js : afficher login/logout selon session -->
+    </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="hero-text">
+        <h1>Apprenez sans limites</h1>
+        <p>
+            Atteignez vos objectifs académiques et professionnels avec EduLearn,
+            la plateforme e-learning dédiée aux étudiants en informatique.
+        </p>
+        <p>Des cours en ligne pour renforcer vos compétences techniques.</p>
+        <a href="cours/listecours.html" class="btn-primary">Explorer les cours</a>
+    </div>
+
+    <div class="hero-img">
+        <img src="assets/image/illustration.png" alt="Illustration apprentissage en ligne">
+    </div>
+</section>
+
+<!-- ===== COURS POPULAIRES ===== -->
+<section class="courses">
+    <h2>Cours les plus populaires</h2>
+
+    <div class="course-grid">
+
+        <div class="course-card">
+            <h3>Développement Web</h3>
+            <p>HTML, CSS, JavaScript</p>
+            <a href="cours/cours.html" class="btn-small">Voir le cours</a>
+        </div>
+
+        <div class="course-card">
+            <h3>Java & POO</h3>
+            <p>Java SE, POO, exercices</p>
+            <a href="cours/cours.html" class="btn-small">Voir le cours</a>
+        </div>
+
+        <div class="course-card">
+            <h3>Bases de données</h3>
+            <p>MySQL, SQL</p>
+            <a href="cours/cours.html" class="btn-small">Voir le cours</a>
+        </div>
+
+        <!-- TODO Node.js : générer les cours dynamiquement -->
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <p>© 2026 EduLearn – Plateforme e-learning</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ahmed Benali | EduLearn</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+    <div class="logo">Edu<span>Learn</span></div>
+
+    <form class="search-bar" action="recherche.html" method="GET">
+        <input type="text" name="q" placeholder="Rechercher un cours..." required>
+        <button type="submit">
+            <i class='bx bx-search'></i>
+        </button>
+    </form>
+
+    <nav class="nav">
+        <a href="index.html" class="btn-acceuil">Accueil</a>
+        <a href="cours/listecours.html" class="btn-cours">Cours</a>
+        <a href="tarifs.html" class="btn-tarifs">Abonnements</a>
+        <a href="contact/contact.html" class="btn-contact">Contact</a>
+        <a href="auth/login.html" class="btn-login">Se connecter</a>
+        <!-- TODO Node.js : afficher login/logout selon session -->
+    </nav>
+</header>
+
+<!-- ===== HERO ENSEIGNANT ===== -->
+<section class="pagee-hero">
+    <img src="assets/images/enseignant.png" alt="Photo " class="enseignant-photo">
+    <h1>Ahmed Benali</h1>
+    <p><strong>Domaine :</strong> Développement Web</p>
+    <p><strong>Grade :</strong> Maître de conférences</p>
+    <p><strong>Email :</strong> ahmed.benali@email.com</p>
+</section>
+
+<!-- ===== COURS DE L'ENSEIGNANT ===== -->
+<section class="enseignant-cours">
+    <h2>📚 Cours de l’enseignant</h2>
+
+    <div class="courses-grid">
+
+        <!-- ===== Cours 1 ===== -->
+        <div class="course-card">
+            <h3>Développement Web Moderne</h3>
+            <p><i class='bx bx-group'></i> <strong>Public :</strong> Débutants</p>
+            <p><i class='bx bx-money'></i> <strong>Accès :</strong> Gratuit</p>
+            <p><i class='bx bx-key'></i> <strong>Clé :</strong> EDU-WEB-2026</p>
+            <a href="C:\finalproject\cours\cours.html" class="btn btn-details">Voir le cours</a>
+        </div>
+
+        <!-- ===== Cours 2 ===== -->
+        <div class="course-card">
+            <h3>Java – Programmation Orientée Objet</h3>
+            <p><i class='bx bx-group'></i> <strong>Public :</strong> L2 / L3</p>
+            <p><i class='bx bx-money'></i> <strong>Accès :</strong> Payant</p>
+            <p><i class='bx bx-key'></i> <strong>Clé :</strong> JAVA-POO-2026</p>
+            <a href="cours.html" class="btn btn-details">Voir le cours</a>
+        </div>
+
+        <!-- ===== Cours 3 ===== -->
+        <div class="course-card">
+            <h3>Bases de Données MySQL</h3>
+            <p><i class='bx bx-group'></i> <strong>Public :</strong> Étudiants informatique</p>
+            <p><i class='bx bx-money'></i> <strong>Accès :</strong> Gratuit</p>
+            <p><i class='bx bx-key'></i> <strong>Clé :</strong> MYSQL-2026</p>
+            <a href="cours.html" class="btn btn-details">Voir le cours</a>
+        </div>
+
+        <!-- TODO Node.js :
+             - boucle sur les cours de l’enseignant
+             - données dynamiques depuis la base -->
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <p>© 2026 EduLearn – Plateforme e-learning</p>
+</footer>
+
+</body>
+</html>

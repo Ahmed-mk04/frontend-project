@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup | EduLearn</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">Edu<span>Learn</span></div>
+    <nav class="nav">
+        <a href="../index.html" class="btn-acceuil">Accueil</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- LOGIN -->
+    <div class="form-box login">
+        <form id="loginForm">
+            <h1>Connexion</h1>
+            <div class="input-box">
+                <input type="text" name="login_username" placeholder="Nom d'utilisateur" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" name="login_password" placeholder="Mot de passe" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+            <div class="forgot-link">
+                <a href="#">Mot de passe oublié ?</a>
+            </div>
+            <button type="submit" class="btn">Se connecter</button>
+        </form>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="form-box register">
+        <form id="registerForm">
+            <h1>S'inscrire</h1>
+
+            <!-- Étape 1 : Choix type utilisateur -->
+            <div class="register-step step-choose">
+                <p>Je suis :</p>
+                <button type="button" class="btn choose-btn" data-type="student">Étudiant</button>
+                <br>
+                <br>
+                <button type="button" class="btn choose-btn" data-type="teacher">Enseignant</button>
+            </div>
+
+            <!-- Étape 2 : Champs spécifiques -->
+            <div class="register-step step-fields" style="display:none;">
+                <input type="hidden" name="user_type" id="user_type">
+
+                <div class="input-box">
+                    <input type="text" name="register_username" placeholder="Nom d'utilisateur" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" name="register_email" placeholder="Email" required>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="register_password" placeholder="Mot de passe" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+
+                <!-- Champs Étudiant -->
+                <div class="student-fields" style="display:none;">
+                    <div class="input-box">
+                        <input type="text" name="student_year" placeholder="Année d'inscription">
+                    </div>
+                    <div class="input-box">
+                        <input type="text" name="student_id" placeholder="Numéro étudiant">
+                    </div>
+                </div>
+
+                <!-- Champs Enseignant -->
+                <div class="teacher-fields" style="display:none;">
+                    <div class="input-box">
+                        <input type="text" name="teacher_domain" placeholder="Domaine">
+                    </div>
+                    <div class="input-box">
+                        <input type="text" name="teacher_grade" placeholder="niveau académique">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">S'inscrire</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- TOGGLE -->
+    <div class="toggle-box">
+        <div class="toggle-panel toggle-left">
+            <h1>Salut, Bienvenue!</h1>
+            <p>Voulez-vous vous inscrire ?</p>
+            <button class="btn register-btn">S'inscrire</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+            <h1>Bienvenue!</h1>
+            <p>Connectez-vous à votre compte</p>
+            <button class="btn login-btn">Se connecter</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>
