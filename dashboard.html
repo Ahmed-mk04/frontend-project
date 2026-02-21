@@ -1,80 +1,165 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Dashboard | EduLearn</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- ===== HEADER ===== -->
-<header class="header">
-    <div class="logo">Edu<span>Learn</span></div>
-    <nav class="nav">
-        <a href="index.html" class="btn-acceuil">Accueil</a>
-        <a href="cours/listecours.html" class="btn-cours">Cours</a>
-        <a href="profil.html" class="btn-profile">Profil</a>
-        <a href="tarifs.html" class="btn-tarifs">Abonnements</a>
-        <a href="contact/contact.html" class="btn-contact">Contact</a>
-        <a href="logout.html" class="btn-login">Se déconnecter</a>
-        <!-- TODO Node.js : afficher Se connecter / Se déconnecter selon session -->
-    </nav>
-</header>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <a href="index.html" class="logo" style="text-decoration: none;">Edu<span>Learn</span></a>
+        <nav class="nav">
+            <a href="index.html" class="btn-acceuil">Accueil</a>
+            <a href="cours/listecours.html" class="btn-cours">Cours</a>
+            <a href="profil.html" class="btn-profile">Profil</a>
+            <a href="tarifs.html" class="btn-tarifs">Abonnements</a>
+            <a href="contact/contact.html" class="btn-contact">Contact</a>
+            <a href="#" class="btn-login" onclick="logout(event)">Se déconnecter</a>
+            <!-- TODO Node.js : afficher Se connecter / Se déconnecter selon session -->
+        </nav>
+    </header>
 
-<!-- ===== DASHBOARD ===== -->
-<section class="courses-dashboard">
-    <h1>📊 Mes cours</h1>
+    <!-- ===== DASHBOARD ===== -->
+    <section class="courses-dashboard">
+        <h1>📊 Mes cours</h1>
 
-    <div class="courses-grid">
-
-        <!-- ===== Cours 1 ===== -->
-        <div class="course-card">
-            <h3>Développement Web Moderne</h3>
-
-            <div class="progress-bar">
-                <div class="progress" style="width: 40%;"></div>
-            </div>
-
-            <p>Progression : 40%</p>
-            <a href="cours/course.html" class="btn btn-details">Continuer le cours</a>
+        <div class="courses-grid" id="coursesGrid">
+            <!-- Les cours inscrits seront chargés ici -->
+            <p style="text-align: center; width: 100%;">Chargement de vos cours...</p>
         </div>
+    </section>
 
-        <!-- ===== Cours 2 ===== -->
-        <div class="course-card">
-            <h3>Java – Programmation Orientée Objet</h3>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>© 2026 EduLearn – Plateforme e-learning</p>
+    </footer>
 
-            <div class="progress-bar">
-                <div class="progress" style="width: 70%;"></div>
+    <script>
+        // Configuration
+        const API_URL = 'http://localhost:3000/api';
+
+        // Helper pour les appels API
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                window.location.href = 'auth/login.html';
+                return null;
+            }
+
+            const options = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+            if (body) options.body = JSON.stringify(body);
+
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, options);
+                if (response.status === 401) {
+                    // Token expiré ou invalide
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = 'auth/login.html';
+                    return null;
+                }
+                return await response.json();
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        }
+
+        // Charger les informations de l'étudiant et ses cours
+        async function initDashboard() {
+            const userStr = localStorage.getItem('user');
+            if (!userStr) {
+                window.location.href = 'auth/login.html';
+                return;
+            }
+
+            if (!user) {
+                window.location.href = 'auth/login.html';
+                return;
+            }
+
+            // Vérifier le rôle
+            if (user.role !== 'student') {
+                if (user.role === 'admin') window.location.href = 'dashboard-admin.html';
+                else if (user.role === 'teacher') window.location.href = 'enseignant.html';
+                return;
+            }
+
+            // Mettre à jour l'interface
+            try {
+                // Récupérer les données fraîches de l'utilisateur
+                const meRes = await apiCall('/auth/me');
+                if (!meRes || !meRes.user) throw new Error('Utilisateur non trouvé');
+
+                const userId = meRes.user._id;
+                // Fetch full details including enrolled courses
+                const userDetails = await apiCall(`/users/${userId}`);
+
+                if (userDetails && userDetails.data) {
+                    displayCourses(userDetails.data.enrolledCourses || []);
+                } else {
+                    displayCourses([]);
+                }
+            } catch (error) {
+                console.error("Dashboard error:", error);
+                // Optionally redirect to login if auth failed
+                if (error.message.includes('non trouvé') || error.message.includes('401')) {
+                    logout();
+                } else {
+                    displayCourses([]); // Show empty state on error
+                }
+            }
+        }
+
+        function displayCourses(courses) {
+            const container = document.getElementById('coursesGrid');
+
+            if (!courses || courses.length === 0) {
+                container.innerHTML = `
+                <div class="no-courses">
+                    <p>Vous n'êtes inscrit à aucun cours pour le moment.</p>
+                    <a href="cours/listecours.html" class="btn btn-primary" style="margin-top: 15px; display: inline-block;">Découvrir les cours</a>
+                </div>
+            `;
+                return;
+            }
+
+            container.innerHTML = courses.map(course => `
+            <div class="course-card">
+                <h3>${course.title}</h3>
+
+                <div class="progress-bar">
+                    <div class="progress" style="width: 0%;"></div>
+                </div>
+
+                <p>Progression : 0%</p>
+                <a href="cours/cours.html?id=${course._id}" class="btn btn-details">Continuer le cours</a>
             </div>
+        `).join('');
+        }
 
-            <p>Progression : 70%</p>
-            <a href="cours/course.html" class="btn btn-details">Continuer le cours</a>
-        </div>
+        function logout(e) {
+            if (e) e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'auth/login.html';
+        }
 
-        <!-- ===== Cours 3 ===== -->
-        <div class="course-card">
-            <h3>Bases de Données MySQL</h3>
-
-            <div class="progress-bar">
-                <div class="progress" style="width: 20%;"></div>
-            </div>
-
-            <p>Progression : 20%</p>
-            <a href="cours/course.html" class="btn btn-details">Continuer le cours</a>
-        </div>
-
-        <!-- TODO Node.js :
-             - boucle sur les cours de l’étudiant
-             - progression dynamique depuis la BDD -->
-
-    </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <p>© 2026 EduLearn – Plateforme e-learning</p>
-</footer>
-
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
 </body>
+
 </html>

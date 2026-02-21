@@ -1,202 +1,564 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Dashboard Admin | EduLearn</title>
-    <link rel="stylesheet" href="C:\finalproject\assets\css\style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
-    
 
-<!-- ===== HEADER ===== -->
-<header class="header">
-    <div class="logo">Edu<span>Learn</span></div>
-    <nav class="nav">
-        <a href="index.html" class="btn-acceuil">Accueil</a>
-        <a href="dashboard-admin.html" class="btn-cours active">Admin</a>
-        <a href="logout.html" class="btn-login">Se déconnecter</a>
-    </nav>
-</header>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <a href="index.html" class="logo" style="text-decoration: none;">Edu<span>Learn</span></a>
+        <nav class="nav">
+            <a href="index.html" class="btn-acceuil">Accueil</a>
+            <a href="dashboard-admin.html" class="btn-cours active">Admin</a>
+            <a href="#" class="btn-login" onclick="logout()">Se déconnecter</a>
+        </nav>
+    </header>
 
-<div class="admin-container">
-    <!-- ===== Onglets ===== -->
-    <div class="admin-tabs">
-        <div class="admin-tab active" data-target="students">Étudiants</div>
-        <div class="admin-tab" data-target="teachers">Enseignants</div>
-        <div class="admin-tab" data-target="courses">Cours</div>
+    <div class="admin-container">
+        <!-- ===== Onglets ===== -->
+        <div class="admin-tabs">
+            <div class="admin-tab active" data-target="students">Étudiants</div>
+            <div class="admin-tab" data-target="teachers">Enseignants</div>
+            <div class="admin-tab" data-target="courses">Cours</div>
+        </div>
+
+        <!-- ===== Gestion Étudiants ===== -->
+        <div id="students" class="admin-section active">
+            <h2>Gestion des Étudiants</h2>
+            <button class="btn-admin" onclick="openModal('addStudentModal')">Ajouter un étudiant</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Année</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTable">
+                    <!-- Les lignes seront générées par JS / Node -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== Gestion Enseignants ===== -->
+        <div id="teachers" class="admin-section">
+            <h2>Gestion des Enseignants</h2>
+            <button class="btn-admin" onclick="openModal('addTeacherModal')">Ajouter un enseignant</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Domaine</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="teachersTable">
+                    <!-- Les lignes seront générées par JS / Node -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== Gestion Cours ===== -->
+        <div id="courses" class="admin-section">
+            <h2>Gestion des Cours</h2>
+            <button class="btn-admin" onclick="openModal('addCourseModal')">Ajouter un cours</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Enseignant</th>
+                        <th>Clé</th>
+                        <th>Accès</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="coursesTable">
+                    <!-- Les lignes seront générées par JS / Node -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- ===== Gestion Étudiants ===== -->
-    <div id="students" class="admin-section active">
-        <h2>Gestion des Étudiants</h2>
-        <button class="btn-admin" onclick="openModal('addStudentModal')">Ajouter un étudiant</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Année</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="studentsTable">
-                <!-- Les lignes seront générées par JS / Node -->
-            </tbody>
-        </table>
+    <!-- ===== ADD MODALS ===== -->
+    <div class="modal" id="addStudentModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addStudentModal')">&times;</span>
+            <h3>Ajouter un étudiant</h3>
+            <form id="addStudentForm">
+                <input type="text" placeholder="Nom complet" name="name" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="text" placeholder="Année" name="year" required>
+                <!-- Add Password Field -->
+                <input type="password" placeholder="Mot de passe" name="password" required style="margin-top: 10px;">
+                <button type="submit" class="btn-admin">Ajouter</button>
+            </form>
+        </div>
     </div>
 
-    <!-- ===== Gestion Enseignants ===== -->
-    <div id="teachers" class="admin-section">
-        <h2>Gestion des Enseignants</h2>
-        <button class="btn-admin" onclick="openModal('addTeacherModal')">Ajouter un enseignant</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Domaine</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="teachersTable">
-                <!-- Les lignes seront générées par JS / Node -->
-            </tbody>
-        </table>
+    <div class="modal" id="addTeacherModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addTeacherModal')">&times;</span>
+            <h3>Ajouter un enseignant</h3>
+            <form id="addTeacherForm">
+                <input type="text" placeholder="Nom complet" name="name" required>
+                <input type="text" placeholder="Domaine" name="domain" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <!-- Add Password Field -->
+                <input type="password" placeholder="Mot de passe" name="password" required style="margin-top: 10px;">
+                <button type="submit" class="btn-admin">Ajouter</button>
+            </form>
+        </div>
     </div>
 
-    <!-- ===== Gestion Cours ===== -->
-    <div id="courses" class="admin-section">
-        <h2>Gestion des Cours</h2>
-        <button class="btn-admin" onclick="openModal('addCourseModal')">Ajouter un cours</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Titre</th>
-                    <th>Enseignant</th>
-                    <th>Accès</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="coursesTable">
-                <!-- Les lignes seront générées par JS / Node -->
-            </tbody>
-        </table>
-    </div>
-</div>
+    <div class="modal" id="addCourseModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addCourseModal')">&times;</span>
+            <h3>Ajouter un cours</h3>
+            <form id="addCourseForm">
+                <input type="text" placeholder="Titre du cours" name="title" required>
+                <select name="teacher" id="teacherSelect" required>
+                    <option value="">Sélectionner un enseignant</option>
+                </select>
 
-<!-- ===== MODALS ===== -->
-<div class="modal" id="addStudentModal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('addStudentModal')">&times;</span>
-        <h3>Ajouter un étudiant</h3>
-        <form id="addStudentForm">
-            <input type="text" placeholder="Nom complet" name="name" required>
-            <input type="email" placeholder="Email" name="email" required>
-            <input type="text" placeholder="Année" name="year" required>
-            <button type="submit" class="btn-admin">Ajouter</button>
-        </form>
-    </div>
-</div>
+                <!-- Access Selection FIRST to toggle Key -->
+                <select name="isPublic" id="isPublicSelect" required onchange="toggleKeyInput(this.value)">
+                    <option value="true">Public (Gratuit - Sans clé)</option>
+                    <option value="false">Privé (Clé requise)</option>
+                </select>
 
-<div class="modal" id="addTeacherModal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('addTeacherModal')">&times;</span>
-        <h3>Ajouter un enseignant</h3>
-        <form id="addTeacherForm">
-            <input type="text" placeholder="Nom complet" name="name" required>
-            <input type="text" placeholder="Domaine" name="domain" required>
-            <input type="email" placeholder="Email" name="email" required>
-            <button type="submit" class="btn-admin">Ajouter</button>
-        </form>
-    </div>
-</div>
+                <input type="text" placeholder="Clé d'inscription" name="enrollmentKey" id="adminEnrollKey"
+                    style="display: none;">
 
-<div class="modal" id="addCourseModal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('addCourseModal')">&times;</span>
-        <h3>Ajouter un cours</h3>
-        <form id="addCourseForm">
-            <input type="text" placeholder="Titre du cours" name="title" required>
-            <input type="text" placeholder="Enseignant" name="teacher" required>
-            <select name="access" required>
-                <option value="Gratuit">Gratuit</option>
-                <option value="Payant">Payant</option>
-            </select>
-            <button type="submit" class="btn-admin">Ajouter</button>
-        </form>
+                <button type="submit" class="btn-admin">Ajouter</button>
+            </form>
+        </div>
     </div>
-</div>
 
-<script>
-    // Onglets
-    const tabs = document.querySelectorAll('.admin-tab');
-    const sections = document.querySelectorAll('.admin-section');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            sections.forEach(s => s.classList.remove('active'));
-            document.getElementById(tab.dataset.target).classList.add('active');
+    <!-- ... Edit Modals ... -->
+    <!-- (Skipping Edit Modals update for brevity unless requested, but sticking to the plan) -->
+    <!-- I will inject the script logic for toggle and password handling below -->
+
+    <!-- ===== EDIT MODALS ===== -->
+    <div class="modal" id="editStudentModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editStudentModal')">&times;</span>
+            <h3>Modifier un étudiant</h3>
+            <form id="editStudentForm">
+                <input type="hidden" name="id">
+                <input type="text" placeholder="Nom complet" name="name" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="text" placeholder="Année" name="year" required>
+                <button type="submit" class="btn-admin">Mettre à jour</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="editTeacherModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editTeacherModal')">&times;</span>
+            <h3>Modifier un enseignant</h3>
+            <form id="editTeacherForm">
+                <input type="hidden" name="id">
+                <input type="text" placeholder="Nom complet" name="name" required>
+                <input type="text" placeholder="Domaine" name="domain" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <button type="submit" class="btn-admin">Mettre à jour</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="editCourseModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editCourseModal')">&times;</span>
+            <h3>Modifier un cours</h3>
+            <form id="editCourseForm">
+                <input type="hidden" name="id">
+                <input type="text" placeholder="Titre du cours" name="title" required>
+                <select name="teacher" id="editTeacherSelect" required>
+                    <option value="">Sélectionner un enseignant</option>
+                </select>
+                <input type="text" placeholder="Clé d'inscription" name="enrollmentKey" required>
+                <select name="access" required>
+                    <option value="Gratuit">Gratuit</option>
+                    <option value="Payant">Payant</option>
+                </select>
+                <button type="submit" class="btn-admin">Mettre à jour</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Key Input Logic
+        function toggleKeyInput(value) {
+            const keyInput = document.getElementById('adminEnrollKey');
+            if (value === 'false') { // Private
+                keyInput.style.display = 'block';
+                keyInput.required = true;
+            } else { // Public
+                keyInput.style.display = 'none';
+                keyInput.required = false;
+                keyInput.value = ""; // Clear
+            }
+        }
+
+        // Configuration
+        const API_URL = 'http://localhost:3000/api';
+
+        // Helper for API calls
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                // If on login page, don't redirect loop
+                if (!window.location.href.includes('login.html')) {
+                    alert('Session expirée. Veuillez vous reconnecter.');
+                    window.location.href = 'auth/login.html';
+                }
+                return null;
+            }
+
+            const options = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                credentials: 'include'
+            };
+            if (body) options.body = JSON.stringify(body);
+
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, options);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || errorData.msg || 'API Error');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error(error);
+                alert('Erreur: ' + error.message);
+                return null;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'auth/login.html';
+        }
+
+        // Global data storage for quick access
+        let allTeachers = [];
+
+        // Load Data Functions
+        async function loadStudents() {
+            const response = await apiCall('/users?role=student');
+            if (response && response.data) populateTable(response.data, 'studentsTable', 'student');
+        }
+
+        async function loadTeachers() {
+            const response = await apiCall('/users?role=teacher');
+            if (response && response.data) {
+                allTeachers = response.data;
+                populateTable(response.data, 'teachersTable', 'teacher');
+                populateTeacherSelect(response.data, 'teacherSelect');
+                populateTeacherSelect(response.data, 'editTeacherSelect');
+            }
+        }
+
+        async function loadCourses() {
+            const response = await apiCall('/courses');
+            if (response && response.data) populateTable(response.data, 'coursesTable', 'course');
+        }
+
+        // Generic Populate Table
+        function populateTable(data, tableId, type) {
+            const tbody = document.getElementById(tableId);
+            tbody.innerHTML = "";
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                let id = item._id; // MongoDB ID
+                let displayId = id.length > 6 ? id.substring(id.length - 6) : id;
+
+                if (type === 'course') {
+                    const teacherName = item.teacher ? (item.teacher.firstName + ' ' + item.teacher.lastName) : 'N/A';
+                    tr.innerHTML = `
+                        <td>${displayId}</td>
+                        <td>${item.title}</td>
+                        <td>${teacherName}</td>
+                        <td>${item.enrollmentKey || "N/A"}</td>
+                        <td>${item.isPublic ? 'Public' : 'Privé'}</td>
+                        <td>
+                            <button class="btn-admin" style="background-color: #f39c12; margin-right: 5px;" onclick="openEditModal('${id}', 'course')">Modifier</button>
+                    <button class="btn-admin" style="background-color: #e74c3c;" onclick="deleteItem('${id}', 'course')">Supprimer</button>
+                        </td>
+                    `;
+                } else {
+                    // User (Student or Teacher)
+                    tr.innerHTML = `
+                        <td>${displayId}</td>
+                        <td>${item.firstName} ${item.lastName}</td>
+                        <td>${type === 'teacher' ? (item.domain || item.email) : item.email}</td>
+                        <td>${type === 'student' ? (item.year || 'N/A') : item.email}</td>
+                        <td>
+                            <button class="btn-admin" style="background-color: #f39c12; margin-right: 5px;" onclick="openEditModal('${id}', '${type}')">Modifier</button>
+                            <button class="btn-admin" style="background-color: #e74c3c;" onclick="deleteItem('${id}', 'user')">Supprimer</button>
+                        </td>
+                    `;
+                }
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Populate Teacher Select in Add/Edit Course Form
+        function populateTeacherSelect(teachers, selectId) {
+            const select = document.getElementById(selectId);
+            if (!select) return;
+
+            // Clear but keep default
+            select.innerHTML = '<option value="">Sélectionner un enseignant</option>';
+
+            teachers.forEach(teacher => {
+                const option = document.createElement('option');
+                option.value = teacher._id; // ID complet
+                option.textContent = `${teacher.firstName} ${teacher.lastName} (${teacher.email})`;
+                select.appendChild(option);
+            });
+        }
+
+        // Delete Item
+        window.deleteItem = async function (id, type) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) return;
+
+            const endpoint = type === 'course' ? `/courses/${id}` : `/users/${id}`;
+            const result = await apiCall(endpoint, 'DELETE');
+
+            if (result) {
+                // Reload current tab data
+                if (type === 'course') loadCourses();
+                else if (document.getElementById('students').classList.contains('active')) loadStudents();
+                else loadTeachers();
+            }
+        }
+
+        // Open Edit Modal
+        window.openEditModal = async function (id, type) {
+            let data;
+            // Fetch fresh data
+            const endpoint = type === 'course' ? `/courses/${id}` : `/users/${id}`;
+            const res = await apiCall(endpoint);
+            if (res && res.data) data = res.data;
+
+            if (!data) return;
+
+            if (type === 'student') {
+                const form = document.getElementById('editStudentForm');
+                form.id.value = data._id;
+                form.name.value = `${data.firstName} ${data.lastName}`;
+                form.email.value = data.email;
+                form.year.value = data.year || '';
+                openModal('editStudentModal');
+            } else if (type === 'teacher') {
+                const form = document.getElementById('editTeacherForm');
+                form.id.value = data._id;
+                form.name.value = `${data.firstName} ${data.lastName}`;
+                form.domain.value = data.domain || '';
+                form.email.value = data.email;
+                openModal('editTeacherModal');
+            } else if (type === 'course') {
+                const form = document.getElementById('editCourseForm');
+                form.id.value = data._id;
+                form.title.value = data.title;
+                form.enrollmentKey.value = data.enrollmentKey || '';
+
+                // Set teacher
+                const teacherId = typeof data.teacher === 'object' ? data.teacher._id : data.teacher;
+                form.teacher.value = teacherId;
+
+                // Set access
+                const access = (data.targetAudience === 'Payant' || data.isPublic === false) ? 'Payant' : 'Gratuit';
+                form.access.value = access;
+
+                openModal('editCourseModal');
+            }
+        }
+
+        // Form Submissions - Add
+        document.getElementById('addStudentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            const payload = {
+                firstName: data.name.split(' ')[0],
+                lastName: data.name.split(' ').slice(1).join(' ') || '.',
+                email: data.email,
+                year: data.year,
+                role: 'student',
+                password: data.password // Use submitted password
+            };
+
+            if (await apiCall('/users', 'POST', payload)) {
+                closeModal('addStudentModal');
+                loadStudents();
+                e.target.reset();
+            }
         });
-    });
 
-    // Modals
-    function openModal(id) {
-        document.getElementById(id).style.display = 'block';
-    }
-    function closeModal(id) {
-        document.getElementById(id).style.display = 'none';
-    }
+        document.getElementById('addTeacherForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            const payload = {
+                firstName: data.name.split(' ')[0],
+                lastName: data.name.split(' ').slice(1).join(' ') || '.',
+                email: data.email,
+                domain: data.domain,
+                role: 'teacher',
+                password: data.password // Use submitted password
+            };
 
-    // Fermer modal en cliquant en dehors
-    window.onclick = function(event) {
-        const modals = document.querySelectorAll('.modal');
-        modals.forEach(modal => {
-            if(event.target === modal) modal.style.display = 'none';
+            if (await apiCall('/users', 'POST', payload)) {
+                closeModal('addTeacherModal');
+                loadTeachers();
+                e.target.reset();
+            }
         });
-    }
 
-    // Exemple JS pour générer les lignes (Node.js pourra les remplir via fetch)
-    const students = [
-        {id:1, name:"Marwa Mfd", email:"marwa@email.com", year:"L2"},
-        {id:2, name:"Ahmed Benali", email:"ahmed@email.com", year:"L3"}
-    ];
-    const teachers = [
-        {id:1, name:"Ahmed Benali", domain:"Développement Web", email:"ahmed@email.com"},
-        {id:2, name:"Sarah Ouali", domain:"Java / POO", email:"sarah@email.com"}
-    ];
-    const courses = [
-        {id:1, title:"Développement Web Moderne", teacher:"Ahmed Benali", access:"Gratuit"},
-        {id:2, title:"Java POO", teacher:"Sarah Ouali", access:"Payant"}
-    ];
+        document.getElementById('addCourseForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
 
-    function populateTable(data, tableId){
-        const tbody = document.getElementById(tableId);
-        tbody.innerHTML = "";
-        data.forEach(item=>{
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${item.id}</td>
-                <td>${item.name || item.title}</td>
-                <td>${item.email || item.teacher || item.domain || ""}</td>
-                <td>${item.year || item.access || ""}</td>
-                <td>
-                    <button class="btn-admin">Modifier</button>
-                    <button class="btn-admin">Supprimer</button>
-                </td>
-            `;
-            tbody.appendChild(tr);
+            // Check isPublic Logic
+            const isPublic = data.isPublic === 'true';
+
+            const payload = {
+                title: data.title,
+                enrollmentKey: isPublic ? null : data.enrollmentKey,
+                teacher: data.teacher,
+                description: "Cours créé par admin",
+                targetAudience: "Tous",
+                isPublic: isPublic
+            };
+
+            if (await apiCall('/courses', 'POST', payload)) {
+                closeModal('addCourseModal');
+                loadCourses();
+                e.target.reset();
+            }
         });
-    }
 
-    populateTable(students, "studentsTable");
-    populateTable(teachers, "teachersTable");
-    populateTable(courses, "coursesTable");
-</script>
+        // Form Submissions - Edit
+        document.getElementById('editStudentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            const id = data.id;
+
+            const payload = {
+                firstName: data.name.split(' ')[0],
+                lastName: data.name.split(' ').slice(1).join(' ') || '.',
+                email: data.email,
+                year: data.year
+            };
+
+            if (await apiCall(`/users/${id}`, 'PUT', payload)) {
+                closeModal('editStudentModal');
+                loadStudents();
+            }
+        });
+
+        document.getElementById('editTeacherForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            const id = data.id;
+
+            const payload = {
+                firstName: data.name.split(' ')[0],
+                lastName: data.name.split(' ').slice(1).join(' ') || '.',
+                email: data.email,
+                domain: data.domain
+            };
+
+            if (await apiCall(`/users/${id}`, 'PUT', payload)) {
+                closeModal('editTeacherModal');
+                loadTeachers();
+            }
+        });
+
+        document.getElementById('editCourseForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            const id = data.id;
+
+            const payload = {
+                title: data.title,
+                enrollmentKey: data.enrollmentKey,
+                teacher: data.teacher,
+                targetAudience: data.access,
+                isPublic: data.access === 'Gratuit'
+            };
+
+            if (await apiCall(`/courses/${id}`, 'PUT', payload)) {
+                closeModal('editCourseModal');
+                loadCourses();
+            }
+        });
+
+        // Onglets Logic
+        const tabs = document.querySelectorAll('.admin-tab');
+        const sections = document.querySelectorAll('.admin-section');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(tab.dataset.target).classList.add('active');
+
+                // Load data for the active tab (optional optimization)
+                if (tab.dataset.target === 'students') loadStudents();
+                if (tab.dataset.target === 'teachers') loadTeachers();
+                if (tab.dataset.target === 'courses') loadCourses();
+            });
+        });
+
+        // Modals Logic
+        window.openModal = function (id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        window.closeModal = function (id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        window.onclick = function (event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) modal.style.display = 'none';
+            });
+        }
+
+            // Init
+            // Note: We chain them to ensure teachers loaded for select dropdowns
+            (async () => {
+                await loadTeachers();
+                loadStudents();
+                loadCourses();
+            })();
+    </script>
 
 </body>
+
 </html>

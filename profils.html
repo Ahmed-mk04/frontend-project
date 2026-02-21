@@ -1,93 +1,96 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Profil Étudiant | EduLearn</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- ===== HEADER ===== -->
-<header class="header">
-    <div class="logo">Edu<span>Learn</span></div>
-    <nav class="nav">
-        <a href="index.html">Accueil</a>
-        <a href="cours/listecours.html">Cours</a>
-        <a href="profil.html" class="active">Profil</a>
-        <a href="dashboard.html">Tableau de bord</a>
-        <a href="tarifs.html">Tarifs</a>
-        <a href="contact/contact.html">Contact</a>
-        <a href="auth/logout.html" class="btn-login">Se déconnecter</a>
-        <!-- TODO Node.js : afficher selon session -->
-    </nav>
-</header>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <a href="index.html" class="logo" style="text-decoration: none;">Edu<span>Learn</span></a>
+        <nav class="nav">
+            <a href="index.html">Accueil</a>
+            <a href="cours/listecours.html">Cours</a>
+            <a href="profil.html" class="active">Profil</a>
+            <a href="dashboard.html">Tableau de bord</a>
+            <a href="tarifs.html">Tarifs</a>
+            <a href="contact/contact.html">Contact</a>
+            <a href="auth/logout.html" class="btn-login">Se déconnecter</a>
+            <!-- TODO Node.js : afficher selon session -->
+        </nav>
+    </header>
 
-<!-- ===== HERO ===== -->
-<section class="page-hero">
-    <h1>Bienvenue, Nom de l’étudiant</h1>
-    <p>Voici votre profil et vos cours inscrits.</p>
-</section>
+    <!-- ===== HERO ===== -->
+    <section class="page-hero">
+        <h1>Bienvenue, Nom de l’étudiant</h1>
+        <p>Voici votre profil et vos cours inscrits.</p>
+    </section>
 
-<!-- ===== PROFIL ===== -->
-<section class="profile-section">
+    <!-- ===== PROFIL ===== -->
+    <section class="profile-section">
 
-    <!-- Infos personnelles -->
-    <div class="profile-card">
-        <img src="assets/images/user.png" alt="Photo utilisateur" class="profile-photo">
-        <h2>Nom Prénom</h2>
-        <p><strong>Email :</strong> etudiant@email.com</p>
-        <p><strong>Année :</strong> L2 Informatique</p>
-        <p><strong>Numéro de carte :</strong> 20260123</p>
+        <!-- Infos personnelles -->
+        <div class="profile-card">
+            <img src="assets/images/user.png" alt="Photo utilisateur" class="profile-photo">
+            <h2>Nom Prénom</h2>
+            <p><strong>Email :</strong> etudiant@email.com</p>
+            <p><strong>Année :</strong> L2 Informatique</p>
+            <p><strong>Numéro de carte :</strong> 20260123</p>
 
-        <!-- TODO Node.js : données dynamiques -->
-    </div>
+            <!-- TODO Node.js : données dynamiques -->
+        </div>
 
-    <!-- Mes cours -->
-    <div class="courses-dashboard">
-        <h2>📚 Mes Cours</h2>
+        <!-- Mes cours -->
+        <div class="courses-dashboard">
+            <h2>📚 Mes Cours</h2>
 
-        <div class="courses-grid">
+            <div class="courses-grid">
 
-            <!-- ===== Cours 1 ===== -->
-            <div class="course-card">
-                <h3>Développement Web Moderne</h3>
-                <p><strong>Enseignant :</strong> Ahmed Benali</p>
-                <p><strong>Progression :</strong> 40%</p>
+                <!-- ===== Cours 1 ===== -->
+                <div class="course-card">
+                    <h3>Développement Web Moderne</h3>
+                    <p><strong>Enseignant :</strong> Ahmed Benali</p>
+                    <p><strong>Progression :</strong> 40%</p>
 
-                <div class="progress-bar">
-                    <div class="progress" style="width:40%;"></div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:40%;"></div>
+                    </div>
+
+                    <a href="cours/course.html" class="btn btn-details">
+                        Accéder au cours
+                    </a>
                 </div>
 
-                <a href="cours/course.html" class="btn btn-details">
-                    Accéder au cours
-                </a>
-            </div>
+                <!-- ===== Cours 2 ===== -->
+                <div class="course-card">
+                    <h3>Java – POO</h3>
+                    <p><strong>Enseignant :</strong> Sarah Kacem</p>
+                    <p><strong>Progression :</strong> 70%</p>
 
-            <!-- ===== Cours 2 ===== -->
-            <div class="course-card">
-                <h3>Java – POO</h3>
-                <p><strong>Enseignant :</strong> Sarah Kacem</p>
-                <p><strong>Progression :</strong> 70%</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width:70%;"></div>
+                    </div>
 
-                <div class="progress-bar">
-                    <div class="progress" style="width:70%;"></div>
+                    <a href="cours/course.html" class="btn btn-details">
+                        Accéder au cours
+                    </a>
                 </div>
-
-                <a href="cours/course.html" class="btn btn-details">
-                    Accéder au cours
-                </a>
-            </div>
-            <!-- TODO Node.js :
+                <!-- TODO Node.js :
                  - boucle sur les cours de l’étudiant
                  - progression depuis la BDD -->
+            </div>
         </div>
-    </div>
-</section>
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <p>© 2026 EduLearn – Plateforme e-learning</p>
-</footer>
+    </section>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>© 2026 EduLearn – Plateforme e-learning</p>
+    </footer>
 
 </body>
+
 </html>

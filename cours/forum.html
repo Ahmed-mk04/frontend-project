@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<title>Forum | Développement Web Moderne</title>
-<link rel="stylesheet" href="cours.css">
-<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Forum | Développement Web Moderne</title>
+    <link rel="stylesheet" href="cours.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-<header class="header">
-    <div class="logo">Edu<span>Learn</span></div>
-    <nav class="nav">
-        <a href="../index.html" class="btn-acceuil">Accueil</a>
-        <a href="listecours.html" class="btn-cours">Cours</a>
-        <a href="../auth/login.html" class="btn-login">Se connecter</a>
-    </nav>
-</header>
+    <header class="header">
+        <a href="../index.html" class="logo" style="text-decoration: none;">Edu<span>Learn</span></a>
+        <nav class="nav">
+            <a href="../index.html" class="btn-acceuil">Accueil</a>
+            <a href="listecours.html" class="btn-cours">Cours</a>
+            <a href="../auth/login.html" class="btn-login">Se connecter</a>
+        </nav>
+    </header>
 
-<section class="course-hero">
-    <h1>Développement Web Moderne</h1>
-    <p>Forum de discussion entre étudiants et enseignant.</p>
-</section>
+    <section class="course-hero">
+        <h1>Développement Web Moderne</h1>
+        <p>Forum de discussion entre étudiants et enseignant.</p>
+    </section>
 
-<section class="course-container">
-    <aside class="course-menu">
-        <ul>
-            <li><a href="videos.html"><i class='bx bx-video'></i> Vidéos</a></li>
-            <li><a href="docs.html"><i class='bx bx-file'></i> Documents</a></li>
-            <li><a href="forum.html" class="active"><i class='bx bx-message-rounded-dots'></i> Forum</a></li>
-            <li><a href="quiz.html"><i class='bx bx-task'></i> Évaluation</a></li>
-        </ul>
-    </aside>
+    <section class="course-container">
+        <aside class="course-menu">
+            <ul>
+                <li><a href="videos.html"><i class='bx bx-video'></i> Vidéos</a></li>
+                <li><a href="docs.html"><i class='bx bx-file'></i> Documents</a></li>
+                <li><a href="forum.html" class="active"><i class='bx bx-message-rounded-dots'></i> Forum</a></li>
+                <li><a href="quiz.html"><i class='bx bx-task'></i> Quiz</a></li>
+            </ul>
+        </aside>
 
-    <main class="course-content">
-        <h2>Forum</h2>
-        <p>Posez vos questions et échangez avec les autres étudiants :</p>
-        <div class="forum-posts">
-            <div class="post">
-                <strong>Étudiant 1:</strong> Comment créer un formulaire en HTML ?<br>
-                <small>Il y a 2 heures</small>
+        <main class="course-content">
+            <h2>Forum</h2>
+            <p>Posez vos questions et échangez avec les autres étudiants :</p>
+            <div class="forum-posts">
+                <div class="post">
+                    <strong>Étudiant 1:</strong> Comment créer un formulaire en HTML ?<br>
+                    <small>Il y a 2 heures</small>
+                </div>
+                <div class="post">
+                    <strong>Étudiant 2:</strong> Quelle est la différence entre div et section ?<br>
+                    <small>Il y a 1 heure</small>
+                </div>
             </div>
-            <div class="post">
-                <strong>Étudiant 2:</strong> Quelle est la différence entre div et section ?<br>
-                <small>Il y a 1 heure</small>
+            <div class="post-form">
+                <textarea placeholder="Écrire un message..."></textarea>
+                <button class="btn">Envoyer</button>
             </div>
-        </div>
-        <div class="post-form">
-            <textarea placeholder="Écrire un message..."></textarea>
-            <button class="btn">Envoyer</button>
-        </div>
-    </main>
-</section>
+        </main>
+    </section>
 
-<footer class="footer">
-    <p>© 2026 EduLearn – Plateforme e-learning</p>
-</footer>
+    <footer class="footer">
+        <p>© 2026 EduLearn – Plateforme e-learning</p>
+    </footer>
 
-<script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil | EduLearn</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <style>
+        /* CSS Integré pour éviter les problèmes de chargement */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fcebeb;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #3498db;
+        }
+
+        .nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            color: #3498db;
+        }
+
+        .profile-wrapper {
+            max-width: 900px;
+            margin: 120px auto 50px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+        }
+
+        /* Sidebar Styling */
+        .profile-sidebar {
+            width: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-align: center;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .user-name {
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .user-role {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main Content Styling */
+        .profile-main {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .section-header {
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin: 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #764ba2;
+            transition: transform 0.2s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .label {
+            display: block;
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-wrapper {
+                flex-direction: column;
+                margin: 100px 20px 20px;
+            }
+
+            .profile-sidebar {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .loading,
+        .error-msg {
+            text-align: center;
+            margin-top: 100px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="logo">Edu<span>Learn</span></a>
+        <nav class="nav">
+            <a href="index.html">Accueil</a>
+            <a href="#" id="dashboardLink">Tableau de Bord</a>
+            <a href="#" onclick="logout()">Se déconnecter</a>
+        </nav>
+    </header>
+
+    <!-- Content -->
+    <div id="app">
+        <div class="loading"><i class='bx bx-loader-alt bx-spin'></i> Chargement du profil...</div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        async function initProfile() {
+            const token = localStorage.getItem('token');
+            const container = document.getElementById('app');
+
+            if (!token) {
+                window.location.href = 'auth/login.html';
+                return;
+            }
+
+            try {
+                // 1. Fetch Basic Info
+                const res = await fetch(`${API_URL}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!res.ok) throw new Error('Session invalide');
+
+                const data = await res.json();
+                const user = data.user;
+
+                // 2. Fetch Detailed Info
+                let details = user;
+                try {
+                    const detailRes = await fetch(`${API_URL}/users/${user._id}`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const detailData = await detailRes.json();
+                    if (detailData.success) details = detailData.data;
+                } catch (e) {
+                    console.warn("Could not fetch details, using basic info", e);
+                }
+
+                // 3. Render
+                renderProfile(details);
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = `
+                    <div class="error-msg">
+                        <i class='bx bx-error-circle'></i><br>
+                        Erreur lors du chargement du profil.<br>
+                        <button onclick="logout()" style="margin-top:20px; padding:10px 20px; cursor:pointer;">Se reconnecter</button>
+                    </div>
+                `;
+            }
+        }
+
+        function renderProfile(user) {
+            // Update Dashboard Link
+            const link = document.getElementById('dashboardLink');
+            if (user.role === 'admin') link.href = 'dashboard-admin.html';
+            else if (user.role === 'teacher') link.href = 'enseignant.html';
+            else link.href = 'dashboard.html';
+
+            // Role Label
+            const roles = { 'student': 'Étudiant', 'teacher': 'Enseignant', 'admin': 'Administrateur' };
+            const roleName = roles[user.role] || user.role;
+            const initials = user.firstName.charAt(0).toUpperCase();
+
+            // Extra Fields
+            let extraHTML = '';
+            if (user.role === 'student') {
+                extraHTML = `
+                    <div class="info-card">
+                        <span class="label">Niveau / Année</span>
+                        <div class="value">${user.year || 'Non spécifié'}</div>
+                    </div>
+                    <div class="info-card">
+                        <span class="label">Cours Inscrits</span>
+                        <div class="value">${user.enrolledCourses ? user.enrolledCourses.length : 0}</div>
+                    </div>
+                `;
+            } else if (user.role === 'teacher') {
+                extraHTML = `
+                    <div class="info-card">
+                        <span class="label">Domaine d'expertise</span>
+                        <div class="value">${user.domain || 'Général'}</div>
+                    </div>
+                `;
+            }
+
+            const html = `
+                <div class="profile-wrapper">
+                    <aside class="profile-sidebar">
+                        <div class="avatar">${initials}</div>
+                        <h1 class="user-name">${user.firstName} ${user.lastName}</h1>
+                        <div class="user-role">${roleName}</div>
+                    </aside>
+
+                    <main class="profile-main">
+                        <div class="section-header">
+                            <h2>Informations Personnelles</h2>
+                        </div>
+
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <span class="label">Adresse Email</span>
+                                <div class="value">${user.email}</div>
+                            </div>
+                            
+                            <div class="info-card">
+                                <span class="label">Membre depuis</span>
+                                <div class="value">${new Date(user.createdAt).toLocaleDateString('fr-FR')}</div>
+                            </div>
+
+                            ${extraHTML}
+                        </div>
+                    </main>
+                </div>
+            `;
+
+            document.getElementById('app').innerHTML = html;
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'auth/login.html';
+        }
+
+        // Start
+        document.addEventListener('DOMContentLoaded', initProfile);
+    </script>
+</body>
+
+</html>

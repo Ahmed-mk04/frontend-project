@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Liste des cours | EduLearn</title>
@@ -7,104 +8,176 @@
     <script defer src="../assets/js/main.js"></script>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- ===== HEADER ===== -->
-<header class="header">
-    <div class="logo">Edu<span>Learn</span></div>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <a href="../index.html" class="logo" style="text-decoration: none;">Edu<span>Learn</span></a>
 
-    <form class="search-bar" action="../recherche.html" method="GET">
-        <input type="text" name="q" placeholder="Rechercher un cours..." required>
-        <button type="submit"><i class='bx bx-search'></i></button>
-    </form>
+        <form class="search-bar" action="../recherche.html" method="GET">
+            <input type="text" name="q" placeholder="Rechercher un cours..." required>
+            <button type="submit"><i class='bx bx-search'></i></button>
+        </form>
 
-    <nav class="nav">
-        <a href="../index.html" class="btn-acceuil">Accueil</a>
-        <a href="../enseignant.html" class="btn-cours">enseignant</a>
-        <a href="../tarifs.html" class="btn-tarifs">Abonnements</a>
-        <a href="../contact/contact.html" class="btn-contact">Contact</a>
-        <a href="../auth/login.html" class="btn-login">Se connecter</a>
-    </nav>
-</header>
+        <nav class="nav">
+            <a href="../index.html" class="btn-acceuil">Accueil</a>
+            <a href="../enseignant.html" class="btn-cours">enseignant</a>
+            <a href="../profil.html" class="btn-profile">Profil</a>
+            <a href="../contact/contact.html" class="btn-contact">Contact</a>
+            <a href="../auth/login.html" class="btn-login">Se connecter</a>
+        </nav>
+    </header>
 
-<!-- ===== HERO ===== -->
-<section class="page-hero">
-    <div class="page-hero-text">
-    <h1>Nos Cours Disponibles</h1>
-    <p>Apprenez avec des enseignants qualifiés et des contenus modernes et adaptés à vos besoins.</p>
-    </div>
-     <div class="page-hero-img">
-        <img src="../assets/image/img8.jpg" alt="Illustration apprentissage en ligne">
-    </div>
-</section>
-
-
-<!-- ===== FILTRE PAR SPECIALITE ===== -->
-<section class="filter-bar">
-    <form>
-        <select name="specialite">
-            <option value="">Toutes les spécialités</option>
-            <option value="web">Développement Web</option>
-            <option value="java">Java / POO</option>
-            <option value="bd">Bases de données</option>
-        </select>
-
-        <select name="annee">
-            <option value="">Toutes les années</option>
-            <option value="l1">L1</option>
-            <option value="l2">L2</option>
-            <option value="l3">L3</option>
-        </select>
-
-        <button type="submit">Filtrer</button>
-        <!-- TODO Node.js : filtrage dynamique -->
-    </form>
-</section>
-
-<!-- ===== LISTE DES COURS ===== -->
-<section class="courses-grid">
-
-    <!-- Cours 1 -->
-    <a href="cours.html" class="course-card">
-        <h3>Développement Web Moderne</h3>
-        <span class="access-key">Accès par clé</span>
-        <p>Apprenez à créer des sites web modernes avec HTML, CSS, JavaScript.</p>
-        <div class="course-meta">
-            <span><i class='bx bxs-user'></i> Ahmed Benali</span>
-            <strong class="free">Gratuit</strong>
+    <!-- ===== HERO ===== -->
+    <section class="page-hero">
+        <div class="page-hero-text">
+            <h1>Nos Cours Disponibles</h1>
+            <p>Apprenez avec des enseignants qualifiés et des contenus modernes et adaptés à vos besoins.</p>
         </div>
-    </a>
-
-    <!-- Cours 2 -->
-    <a href="cours.html" class="course-card">
-        <h3>Java – Programmation Orientée Objet</h3>
-        <span class="access-key">Accès par clé</span>
-        <p>Maîtrisez les concepts POO avec Java et des exemples pratiques.</p>
-        <div class="course-meta">
-            <span><i class='bx bxs-user'></i> Sarah Kacem</span>
-            <strong class="paid">Payant</strong>
+        <div class="page-hero-img">
+            <img src="../assets/image/img8.jpg" alt="Illustration apprentissage en ligne">
         </div>
-    </a>
+    </section>
 
-    <!-- Cours 3 -->
-    <a href="cours.html" class="course-card">
-        <h3>Bases de Données MySQL</h3>
-        <span class="access-key">Accès par clé</span>
-        <p>Comprendre les bases des bases de données relationnelles.</p>
-        <div class="course-meta">
-            <span><i class='bx bxs-user'></i> Mohamed Ali</span>
-            <strong class="free">Gratuit</strong>
+
+    <!-- ===== FILTRE PAR SPECIALITE ===== -->
+    <section class="filter-bar">
+        <form>
+            <select name="specialite">
+                <option value="">Toutes les spécialités</option>
+                <option value="web">Développement Web</option>
+                <option value="java">Java / POO</option>
+                <option value="bd">Bases de données</option>
+            </select>
+
+            <select name="annee">
+                <option value="">Toutes les années</option>
+                <option value="l1">L1</option>
+                <option value="l2">L2</option>
+                <option value="l3">L3</option>
+            </select>
+
+            <button type="submit">Filtrer</button>
+            <!-- TODO Node.js : filtrage dynamique -->
+        </form>
+    </section>
+
+    <!-- ===== LISTE DES COURS ===== -->
+    <section class="courses-grid">
+        <div id="loading-message" style="width: 100%; text-align: center; padding: 20px;">
+            <p>Chargement des cours...</p>
         </div>
-    </a>
+        <!-- Les cours seront chargés dynamiquement ici -->
+    </section>
 
-    <!-- TODO Node.js : générer les cours dynamiquement -->
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>© 2026 EduLearn – Plateforme e-learning</p>
+    </footer>
 
-</section>
+    <script>
+        // Configuration
+        const API_URL = 'http://localhost:3000/api';
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <p>© 2026 EduLearn – Plateforme e-learning</p>
-</footer>
+        // Helper pour les appels API
+        async function apiCall(endpoint) {
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`);
+                return await response.json();
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        }
 
+        async function loadCourses() {
+            const container = document.querySelector('.courses-grid');
+            try {
+                const response = await apiCall('/courses');
+
+                // Clear loading message
+                const loader = document.getElementById('loading-message');
+                if (loader) loader.remove();
+
+                if (response && response.data) {
+                    displayCourses(response.data);
+                    setupFilters(response.data);
+                } else {
+                    container.innerHTML = '<p style="text-align:center; width:100%;">Impossible de charger les cours. Vérifiez la connexion.</p>';
+                }
+            } catch (err) {
+                container.innerHTML = '<p style="text-align:center; width:100%;">Erreur technique lors du chargement.</p>';
+            }
+        }
+
+        function displayCourses(courses) {
+            const container = document.querySelector('.courses-grid');
+
+            if (!courses || courses.length === 0) {
+                container.innerHTML = '<p style="text-align:center; width:100%;">Aucun cours disponible pour le moment.</p>';
+                return;
+            }
+
+            container.innerHTML = courses.map(course => {
+                // Gérer l'affichage de l'enseignant (objet ou ID)
+                const teacherName = (course.teacher && typeof course.teacher === 'object')
+                    ? `${course.teacher.firstName} ${course.teacher.lastName}`
+                    : 'Enseignant';
+
+                return `
+            <a href="cours.html?id=${course._id}" class="course-card">
+                <h3>${course.title}</h3>
+                <span class="access-key">Clé requise</span>
+                <p>${course.description.substring(0, 100)}...</p>
+                <div class="course-meta">
+                    <span><i class='bx bxs-user'></i> ${teacherName}</span>
+                    <strong class="${course.enrollmentKey ? 'paid' : 'free'}">${course.category || 'Général'}</strong>
+                </div>
+            </a>
+            `;
+            }).join('');
+        }
+
+        function setupFilters(allCourses) {
+            const form = document.querySelector('.filter-bar form');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const specialite = form.specialite.value.toLowerCase();
+                const niveau = form.annee.value.toLowerCase(); // Mapping avec 'level' ou 'targetAudience'
+
+                const filtered = allCourses.filter(course => {
+                    const matchSpec = !specialite || (course.category && course.category.toLowerCase().includes(specialite)) || (course.title.toLowerCase().includes(specialite));
+                    // Adaptation simple pour le filtre 'annee' (mapping approximatif pour l'exemple)
+                    const matchNiveau = !niveau || (course.level && course.level.toLowerCase().includes(niveau));
+
+                    return matchSpec && matchNiveau;
+                });
+
+                displayCourses(filtered);
+            });
+        }
+
+        // Gestion de la barre de recherche
+        const searchForm = document.querySelector('.search-bar');
+        if (searchForm) {
+            searchForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const query = searchForm.q.value;
+                // On pourrait faire un appel API spécifique ou filtrer localement
+                // Ici on va recharger tout et filtrer localement pour simplifier
+                const response = await apiCall('/courses');
+                if (response && response.data) {
+                    const filtered = response.data.filter(c => c.title.toLowerCase().includes(query.toLowerCase()));
+                    displayCourses(filtered);
+                }
+            });
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', loadCourses);
+    </script>
 </body>
+
 </html>

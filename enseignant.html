@@ -1,86 +1,294 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Ahmed Benali | EduLearn</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- ===== HEADER ===== -->
-<header class="header">
-    <div class="logo">Edu<span>Learn</span></div>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <a href="index.html" class="logo" style="text-decoration: none;">Edu<span>Learn</span></a>
 
-    <form class="search-bar" action="recherche.html" method="GET">
-        <input type="text" name="q" placeholder="Rechercher un cours..." required>
-        <button type="submit">
-            <i class='bx bx-search'></i>
-        </button>
-    </form>
+        <form class="search-bar" action="recherche.html" method="GET">
+            <input type="text" name="q" placeholder="Rechercher un cours..." required>
+            <button type="submit">
+                <i class='bx bx-search'></i>
+            </button>
+        </form>
 
-    <nav class="nav">
-        <a href="index.html" class="btn-acceuil">Accueil</a>
-        <a href="cours/listecours.html" class="btn-cours">Cours</a>
-        <a href="tarifs.html" class="btn-tarifs">Abonnements</a>
-        <a href="contact/contact.html" class="btn-contact">Contact</a>
-        <a href="auth/login.html" class="btn-login">Se connecter</a>
-        <!-- TODO Node.js : afficher login/logout selon session -->
-    </nav>
-</header>
+        <nav class="nav">
+            <a href="index.html" class="btn-acceuil">Accueil</a>
+            <a href="cours/listecours.html" class="btn-cours">Cours</a>
+            <a href="tarifs.html" class="btn-tarifs">Abonnements</a>
+            <a href="profil.html" class="btn-profile">Profil</a>
+            <a href="contact/contact.html" class="btn-contact">Contact</a>
+            <a href="#" class="btn-login" onclick="logout(event)">Se déconnecter</a>
+            <!-- TODO Node.js : afficher login/logout selon session -->
+        </nav>
+    </header>
 
-<!-- ===== HERO ENSEIGNANT ===== -->
-<section class="pagee-hero">
-    <img src="assets/images/enseignant.png" alt="Photo " class="enseignant-photo">
-    <h1>Ahmed Benali</h1>
-    <p><strong>Domaine :</strong> Développement Web</p>
-    <p><strong>Grade :</strong> Maître de conférences</p>
-    <p><strong>Email :</strong> ahmed.benali@email.com</p>
-</section>
+    <!-- ===== HERO ENSEIGNANT ===== -->
+    <section class="pagee-hero">
+        <img src="assets/images/enseignant.png" alt="Photo " class="enseignant-photo">
+        <h1>Ahmed Benali</h1>
+        <p><strong>Domaine :</strong> Développement Web</p>
+        <p><strong>Grade :</strong> Maître de conférences</p>
+        <p><strong>Email :</strong> ahmed.benali@email.com</p>
+    </section>
 
-<!-- ===== COURS DE L'ENSEIGNANT ===== -->
-<section class="enseignant-cours">
-    <h2>📚 Cours de l’enseignant</h2>
-
-    <div class="courses-grid">
-
-        <!-- ===== Cours 1 ===== -->
-        <div class="course-card">
-            <h3>Développement Web Moderne</h3>
-            <p><i class='bx bx-group'></i> <strong>Public :</strong> Débutants</p>
-            <p><i class='bx bx-money'></i> <strong>Accès :</strong> Gratuit</p>
-            <p><i class='bx bx-key'></i> <strong>Clé :</strong> EDU-WEB-2026</p>
-            <a href="C:\finalproject\cours\cours.html" class="btn btn-details">Voir le cours</a>
+    <!-- ===== COURS DE L'ENSEIGNANT ===== -->
+    <section class="enseignant-cours">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>📚 Cours de l’enseignant</h2>
+            <button onclick="openModal('addCourseModal')" class="btn btn-primary"
+                style="background-color: #27ae60;">Ajouter un cours</button>
         </div>
 
-        <!-- ===== Cours 2 ===== -->
-        <div class="course-card">
-            <h3>Java – Programmation Orientée Objet</h3>
-            <p><i class='bx bx-group'></i> <strong>Public :</strong> L2 / L3</p>
-            <p><i class='bx bx-money'></i> <strong>Accès :</strong> Payant</p>
-            <p><i class='bx bx-key'></i> <strong>Clé :</strong> JAVA-POO-2026</p>
-            <a href="cours.html" class="btn btn-details">Voir le cours</a>
+        <div class="courses-grid">
+            <!-- Courses will be loaded here -->
         </div>
+    </section>
 
-        <!-- ===== Cours 3 ===== -->
-        <div class="course-card">
-            <h3>Bases de Données MySQL</h3>
-            <p><i class='bx bx-group'></i> <strong>Public :</strong> Étudiants informatique</p>
-            <p><i class='bx bx-money'></i> <strong>Accès :</strong> Gratuit</p>
-            <p><i class='bx bx-key'></i> <strong>Clé :</strong> MYSQL-2026</p>
-            <a href="cours.html" class="btn btn-details">Voir le cours</a>
+    <!-- ===== ADD COURSE MODAL ===== -->
+    <div id="addCourseModal" class="modal"
+        style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);">
+        <div class="modal-content"
+            style="background-color: #fefefe; margin: 10% auto; padding: 20px; border: 1px solid #888; width: 50%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <span class="close" onclick="closeModal('addCourseModal')"
+                style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <h3 style="margin-top: 0;">Ajouter un nouveau cours</h3>
+            <form id="addCourseForm" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                <input type="text" placeholder="Titre du cours" name="title" required
+                    style="padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <textarea placeholder="Description du cours" name="description" required
+                    style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 100px;"></textarea>
+
+                <select name="isPublic" id="teacherIsPublicSelect" required onchange="toggleTeacherKeyInput(this.value)"
+                    style="padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="" disabled selected>Type d'accès</option>
+                    <option value="true">Public (Gratuit - Sans clé)</option>
+                    <option value="false">Privé (Clé requise)</option>
+                </select>
+
+                <input type="text" id="teacherEnrollKey" placeholder="Clé d'inscription (ex: MATHS2026)"
+                    name="enrollmentKey"
+                    style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; display: none;">
+
+                <select name="targetAudience" required
+                    style="padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="" disabled selected>Public cible</option>
+                    <option value="Débutants">Débutants</option>
+                    <option value="Intermédiaire">Intermédiaire</option>
+                    <option value="Avancé">Avancé</option>
+                    <option value="Tous">Tous</option>
+                </select>
+
+                <button type="submit" class="btn btn-primary"
+                    style="padding: 10px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Créer
+                    le cours</button>
+            </form>
         </div>
-
-        <!-- TODO Node.js :
-             - boucle sur les cours de l’enseignant
-             - données dynamiques depuis la base -->
     </div>
-</section>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <p>© 2026 EduLearn – Plateforme e-learning</p>
-</footer>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>© 2026 EduLearn – Plateforme e-learning</p>
+    </footer>
 
+    <script>
+        // Configuration
+        const API_URL = 'http://localhost:3000/api';
+
+        // Helper pour les appels API
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                window.location.href = 'auth/login.html';
+                return null;
+            }
+
+            const options = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+            if (body) options.body = JSON.stringify(body);
+
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, options);
+                if (response.status === 401) {
+                    // Token expiré ou invalide
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = 'auth/login.html';
+                    return null;
+                }
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Erreur API');
+                return data;
+            } catch (error) {
+                console.error(error);
+                alert('Erreur: ' + error.message);
+                return null;
+            }
+        }
+
+        // Charger les informations de l'enseignant et ses cours
+        async function initTeacherDashboard() {
+            const userStr = localStorage.getItem('user');
+            let user = userStr ? JSON.parse(userStr) : null;
+
+            // Fetch fresh user data to ensure ID is correct
+            try {
+                const freshUserRes = await apiCall('/auth/me');
+                if (freshUserRes && freshUserRes.user) {
+                    user = freshUserRes.user;
+                    localStorage.setItem('user', JSON.stringify(user));
+                }
+            } catch (e) {
+                console.error("Failed to refresh user data", e);
+            }
+
+            if (!user) {
+                window.location.href = 'auth/login.html';
+                return;
+            }
+
+            // Vérifier le rôle
+            if (user.role !== 'teacher') {
+                if (user.role === 'admin') window.location.href = 'dashboard-admin.html';
+                else if (user.role === 'student') window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Mettre à jour les informations du profil
+            document.querySelector('.pagee-hero h1').textContent = `${user.firstName} ${user.lastName}`;
+            document.querySelector('.pagee-hero p:nth-of-type(3)').innerHTML = `<strong>Email :</strong> ${user.email}`;
+
+            // Récupérer les cours
+            const response = await apiCall('/courses');
+
+            if (response && response.data) {
+                // Filtrer les cours où l'enseignant est l'auteur
+                const myCourses = response.data.filter(course => {
+                    const teacherId = typeof course.teacher === 'object' ? course.teacher._id : course.teacher;
+                    return teacherId === user._id;
+                });
+                displayTeacherCourses(myCourses);
+            }
+        }
+
+        function displayTeacherCourses(courses) {
+            const container = document.querySelector('.courses-grid');
+
+            if (!courses || courses.length === 0) {
+                container.innerHTML = `
+                <div class="no-courses" style="grid-column: 1 / -1; text-align: center;">
+                    <p>Vous n'avez créé aucun cours pour le moment.</p>
+                </div>
+            `;
+                return;
+            }
+
+            container.innerHTML = courses.map(course => `
+            <div class="course-card">
+                <h3>${course.title}</h3>
+                <p><i class='bx bx-group'></i> <strong>Public :</strong> ${course.targetAudience || 'Tous'}</p>
+                <p><i class='bx bx-money'></i> <strong>Accès :</strong> ${course.isPublic ? 'Public' : 'Privé'}</p>
+                <p><i class='bx bx-key'></i> <strong>Clé :</strong> ${course.enrollmentKey || 'Aucune'}</p>
+                <div style="margin-top: 10px;">
+                    <a href="cours/cours.html?id=${course._id}" class="btn btn-details">Gérer</a>
+                    <button onclick="deleteCourse('${course._id}')" class="btn" style="background-color: #e74c3c; color: white;">Supprimer</button>
+                    <!-- Future: Ajouter bouton Modifier ici aussi si désiré -->
+                </div>
+            </div>
+        `).join('');
+        }
+
+        async function deleteCourse(id) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer ce cours ?')) return;
+
+            const result = await apiCall(`/courses/${id}`, 'DELETE');
+            if (result && result.success) {
+                // alert('Cours supprimé'); // Déjà notifié si erreur
+                initTeacherDashboard(); // Recharger
+            }
+        }
+
+        // Modal functions
+        window.openModal = function (id) {
+            document.getElementById(id).style.display = 'block';
+        }
+
+        window.closeModal = function (id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Handle Form Submission
+        document.getElementById('addCourseForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const user = JSON.parse(localStorage.getItem('user'));
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Format payload
+            const payload = {
+                title: data.title,
+                description: data.description,
+                enrollmentKey: data.enrollmentKey,
+                targetAudience: data.targetAudience,
+                isPublic: data.isPublic === 'true',
+                teacher: user._id // Assign to self
+            };
+
+            const result = await apiCall('/courses', 'POST', payload);
+            if (result && result.success) {
+                alert('Cours créé avec succès !');
+                closeModal('addCourseModal');
+                e.target.reset();
+                initTeacherDashboard();
+            }
+        });
+
+        // Toggle Key Input
+        window.toggleTeacherKeyInput = function (value) {
+            const keyInput = document.getElementById('teacherEnrollKey');
+            if (value === 'false') { // Private
+                keyInput.style.display = 'block';
+                keyInput.required = true;
+            } else { // Public
+                keyInput.style.display = 'none';
+                keyInput.required = false;
+                keyInput.value = ""; // Clear
+            }
+        }
+
+        function logout(e) {
+            if (e) e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'auth/login.html';
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', initTeacherDashboard);
+    </script>
 </body>
+
 </html>
